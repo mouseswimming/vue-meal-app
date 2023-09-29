@@ -14,6 +14,10 @@ const randomMeals = computed(() => {
 </script>
 
 <template>
-  <CategoryGrids />
-  <MealsGrid :meals="randomMeals" title="Popular Meals" />
+  <main>
+    <CategoryGrids />
+    <div class="p-4 my-2">
+      <MealsGrid :meals="randomMeals" title="Popular Meals" />
+    </div>
+  </main>
 </template>

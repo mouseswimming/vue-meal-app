@@ -13,15 +13,37 @@ const router = createRouter({
       path: '/meal/:id',
       name: 'mealDetail',
       component: () => import('../views/MealDetail.vue')
+    },
+    {
+      path: '/by-category/:catName',
+      name: 'byCategory',
+      component: () => import('../views/MealsByCategory.vue')
+    },
+    {
+      path: '/ingredients-a-z',
+      name: 'ingredients-a-z',
+      component: () => import('../views/IngredientSearch.vue')
+    },
+    {
+      path: '/by-ingredient/:ingredient',
+      name: 'byIngredient',
+      component: () => import('../views/MealsByIngredient.vue')
+    },
+    {
+      path: '/areas-a-z',
+      name: 'areas-a-z',
+      component: () => import('../views/AreaSearch.vue')
+    },
+    {
+      path: '/by-area/:area',
+      name: 'byArea',
+      component: () => import('../views/MealsByArea.vue')
+    },
+    {
+      path: '/by-name',
+      name: 'byName',
+      component: () => import('../views/NameSearch.vue')
     }
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
   ]
 })
 

@@ -62,16 +62,16 @@ export const useMealStore = defineStore('mealStore', () => {
     return res.data.meals[0] as Meal
   }
 
-  const getMealByCategory = async (category: string, num?: number, mealId?: string) => {
+  const getMealByCategory = async (category: string, num?: number, mealId = '') => {
     mealId = mealId || ''
     if (categorizedMeals.value?.[category]) {
       return num
         ? getRandomElementsFromArray(categorizedMeals.value[category], num, mealId)
         : categorizedMeals.value[category]
     }
-    console.log('categorizedMeals.value?.[category]', categorizedMeals.value[category])
+
     const res = await axiosClient.get(`filter.php?c=${category}`)
-    const meals = res.data.meals as Array<Meal>
+    const meals = (res.data.meals as Array<Meal>) || []
 
     Object.assign(categorizedMeals.value, { [category]: meals })
 
@@ -81,5 +81,36 @@ export const useMealStore = defineStore('mealStore', () => {
     return meals
   }
 
-  return { randomMeals, getRandomMeals, getMealById, getMealByCategory }
+  const getMealByIngredient = async (ingredeint: string) => {
+    const keyword = ingredeint.replaceAll(' ', '_').toLowerCase()
+    const res = await axiosClient.get(`filter.php?i=${keyword}`)
+    const meals = (res.data.meals as Array<Meal>) || []
+
+    return meals
+  }
+
+  const getMealByArea = async (area: string) => {
+    const res = await axiosClient.get(`filter.php?a=${area}`)
+    const meals = (res.data.meals as Array<Meal>) || []
+
+    return meals
+  }
+
+  const getMealByName = async (keyword: string) => {
+    if (keyword === '') return []
+    const res = await axiosClient.get(`search.php?s=${keyword}`)
+    const meals = (res.data.meals as Array<Meal>) || []
+
+    return meals
+  }
+
+  return {
+    randomMeals,
+    getRandomMeals,
+    getMealById,
+    getMealByCategory,
+    getMealByIngredient,
+    getMealByArea,
+    getMealByName
+  }
 })

@@ -6,12 +6,15 @@
       :to="{ name: 'home' }"
       class="inline-flex items-center h-full px-5 text-orange-500 font-bold"
     >
-      Home
+      <img src="/public/logo.svg" class="w-12" alt="" />
+      <span class="text-2xl pl-4">Vivian's Kitchen</span>
     </router-link>
     <div class="menus flex gap-x-2">
-      <router-link :to="{ name: 'home' }" class="menu-item"> Meals by Name </router-link>
-      <router-link :to="{ name: 'home' }" class="menu-item"> Meals by Ingredients </router-link>
-      <router-link :to="{ name: 'home' }" class="menu-item"> Meals by Areas </router-link>
+      <router-link :to="{ name: 'byName' }" class="menu-item"> Meals by Name </router-link>
+      <router-link :to="{ name: 'ingredients-a-z' }" class="menu-item">
+        Meals by Ingredients
+      </router-link>
+      <router-link :to="{ name: 'areas-a-z' }" class="menu-item"> Meals by Areas </router-link>
     </div>
   </header>
 </template>

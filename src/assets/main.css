@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+main {
+  @apply py-12 px-8;
+}
+
 .section-title {
-  @apply text-2xl font-bold text-orange-500 mb-4;
+  @apply text-2xl font-bold text-gray-700 mb-4;
+  font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+  font-family: 'Poppins', sans-serif;
 }

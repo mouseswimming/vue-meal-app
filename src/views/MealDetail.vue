@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { useMealStore } from '@/stores/mealStore'
 import type { Meal } from '@/types/Meal'
 import { onMounted, ref } from 'vue'
@@ -13,7 +13,7 @@ const meal = ref(<Meal>{})
 const mealsInSameCategory = ref(new Array<Meal>())
 
 onMounted(async () => {
-  const mealId = route.params.id
+  const mealId = route.params.id.toString()
   meal.value = await mealStore.getMealById(mealId)
 
   mealsInSameCategory.value = await mealStore.getMealByCategory(meal.value.strCategory, 4, mealId)
