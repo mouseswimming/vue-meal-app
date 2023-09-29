@@ -15,7 +15,12 @@ defineProps<{
       <p class="uppercase text-xs text-gray-600">
         {{ meal.strCategory }}
       </p>
-      <p class="text-lg font-semibold">{{ meal.strMeal }}</p>
+      <router-link
+        :to="{ name: 'mealDetail', params: { id: meal.idMeal } }"
+        class="hover:text-orange-600 hover:underline"
+      >
+        <p class="text-base font-semibold line-clamp-2">{{ meal.strMeal }}</p>
+      </router-link>
     </div>
   </div>
 </template>

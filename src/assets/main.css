@@ -4,6 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
+body {
+  position: relative;
+}
+
 main {
   @apply py-12 px-8;
 }

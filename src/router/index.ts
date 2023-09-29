@@ -44,7 +44,11 @@ const router = createRouter({
       name: 'byName',
       component: () => import('../views/NameSearch.vue')
     }
-  ]
+  ],
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0 }
+  }
 })
 
 export default router

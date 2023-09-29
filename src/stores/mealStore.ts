@@ -104,6 +104,14 @@ export const useMealStore = defineStore('mealStore', () => {
     return meals
   }
 
+  const getMealByLetter = async (letter: string) => {
+    if (letter === '') return []
+    const res = await axiosClient.get(`search.php?f=${letter}`)
+    const meals = (res.data.meals as Array<Meal>) || []
+
+    return meals
+  }
+
   return {
     randomMeals,
     getRandomMeals,
@@ -111,6 +119,7 @@ export const useMealStore = defineStore('mealStore', () => {
     getMealByCategory,
     getMealByIngredient,
     getMealByArea,
-    getMealByName
+    getMealByName,
+    getMealByLetter
   }
 })

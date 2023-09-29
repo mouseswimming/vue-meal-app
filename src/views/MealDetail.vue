@@ -4,28 +4,54 @@ import type { Meal } from '@/types/Meal'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import MealsGrid from '@/components/MealsGrid.vue'
 import MealItem from '@/components/MealItem.vue'
 
 const route = useRoute()
 const mealStore = useMealStore()
-const meal = ref(<Meal>{})
+const meal = ref<Meal>({
+  idMeal: ''
+})
 const mealsInSameCategory = ref(new Array<Meal>())
 
+const loading = ref(false)
+const loaded = ref(false)
+
 onMounted(async () => {
+  loading.value = true
+  loaded.value = false
   const mealId = route.params.id.toString()
   meal.value = await mealStore.getMealById(mealId)
+  loading.value = false
+  loaded.value = true
 
-  mealsInSameCategory.value = await mealStore.getMealByCategory(meal.value.strCategory, 4, mealId)
+  if (meal.value.strCategory) {
+    mealsInSameCategory.value = await mealStore.getMealByCategory(meal.value.strCategory, 4, mealId)
+  }
 })
 </script>
 
 <template>
-  <main class="py-12 px-8">
+  <main class="py-12 px-8" v-if="loaded">
     <h1 class="text-4xl font-bold mb-4">{{ meal.strMeal }}</h1>
     <div class="uppercase text-xs text-orange-600 flex gap-x-8 mb-4 font-semibold">
-      <div><span class="label">Category:</span> {{ meal.strCategory }}</div>
-      <div><span class="label">Area:</span> {{ meal.strArea }}</div>
+      <div>
+        <span class="text-gray-600 pr-1">Category:</span>
+        <router-link
+          :to="{ name: 'byCategory', params: { catName: meal.strCategory } }"
+          class="hover:underline hover:underline-offset-4"
+        >
+          {{ meal.strCategory }}
+        </router-link>
+      </div>
+      <div>
+        <span class="text-gray-600 pr-1">Area:</span>
+        <router-link
+          :to="{ name: 'byArea', params: { area: meal.strArea } }"
+          class="hover:underline hover:underline-offset-4"
+        >
+          {{ meal.strArea }}
+        </router-link>
+      </div>
     </div>
     <section class="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-x-12">
       <div>
@@ -71,9 +97,3 @@ onMounted(async () => {
     </section>
   </main>
 </template>
-
-<style lang="css" scoped>
-.label {
-  @apply font-normal text-gray-600;
-}
-</style>
